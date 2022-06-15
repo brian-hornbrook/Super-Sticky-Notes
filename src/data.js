@@ -1,4 +1,5 @@
 
+
 export const Notes = [
   {
     id: 0,
@@ -24,4 +25,5 @@ export const search = [
   {
     searchText: ""
   }
+
 ];

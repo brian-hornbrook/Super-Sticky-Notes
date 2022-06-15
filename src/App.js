@@ -6,7 +6,6 @@ import { Notes } from "./data";
 class App extends Component {
   state = { Notes, title: "", description: "" };
 
-
   handleNewTitle = (event) => {
     const updateState = this.state;
     updateState.title = event.target.value;
@@ -28,7 +27,6 @@ class App extends Component {
       doesMatchSearch: true
     };
     this.setState({ Notes: [updateNotes, ...this.state.Notes] });
-    // console.log( `Notes = ${this.state.Notes}`);
   };
 
   onType = (id, property, updatedValue) => {

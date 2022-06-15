@@ -12,7 +12,15 @@ const NoteList = (props) => {
     />
   );
 
+<<<<<<< HEAD
   const filterNotes = props.Notes.filter((note) => {
+=======
+<<<<<<< HEAD
+  const filterNotes = props.notes.filter((note) => {
+=======
+  const filterNotes = props.Notes.filter((note) => {
+>>>>>>> main
+>>>>>>> upstream/gh-pages
     return note.doesMatchSearch;
   });
 
