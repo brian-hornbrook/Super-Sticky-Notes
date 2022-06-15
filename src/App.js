@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import Header from "./Header";
 import NoteList from "./NoteList";
-import { notes } from "./data";
+import { Notes } from "./data";
 
 class App extends Component {
-  state = { notes, title: "", description: "" };
+  state = { Notes, title: "", description: "" };
+
 
   handleNewTitle = (event) => {
     const updateState = this.state;
@@ -20,19 +21,18 @@ class App extends Component {
 
   addNote = (event) => {
     event.preventDefault();
-    console.log(`clicked ${this.state.title}`);
-    console.log(`clicked ${this.state.description}`);
     const updateNotes = {
       id: Date.now(),
       title: this.state.title,
       description: this.state.description,
       doesMatchSearch: true
     };
-    this.setState({ notes: [updateNotes, ...this.state.notes] });
+    this.setState({ Notes: [updateNotes, ...this.state.Notes] });
+    // console.log( `Notes = ${this.state.Notes}`);
   };
 
   onType = (id, property, updatedValue) => {
-    const updatedNotes = this.state.notes.map((note) => {
+    const updatedNotes = this.state.Notes.map((note) => {
       if (note.id !== id) {
         return note;
       } else {
@@ -47,11 +47,11 @@ class App extends Component {
         }
       }
     });
-    this.setState({ notes: updatedNotes });
+    this.setState({ Notes: updatedNotes });
   };
 
   onSearch = (searchText) => {
-    const searchNotes = this.state.notes.map((note) => {
+    const searchNotes = this.state.Notes.map((note) => {
       if (
         note.title.includes(searchText) ||
         note.description.includes(searchText)
@@ -60,15 +60,29 @@ class App extends Component {
       else note.doesMatchSearch = false;
       return note;
     });
-    this.setState({ notes: searchNotes });
+    this.setState({ Notes: searchNotes });
   };
 
   onDelete = (index) => {
-    const updatedNotes = this.state.notes.filter((note) => {
+    const updatedNotes = this.state.Notes.filter((note) => {
       if (note.id !== index) return note;
     });
-    this.setState({ notes: updatedNotes });
+    this.setState({ Notes: updatedNotes });
   };
+
+  componentDidUpdate() {
+    const stateString = JSON.stringify(this.state.Notes);
+    localStorage.setItem("notes", stateString);
+  }
+
+  componentDidMount() {
+    const stateNotes = localStorage.getItem("notes");
+    if (stateNotes) {
+      const savedNotes = JSON.parse(stateNotes)
+      this.setState({ Notes: savedNotes });
+
+    }
+  }
 
   render() {
     return (
@@ -82,7 +96,7 @@ class App extends Component {
         />
         <NoteList
           onType={this.onType}
-          notes={this.state.notes}
+          Notes={this.state.Notes}
           onDelete={this.onDelete}
         />
       </div>
