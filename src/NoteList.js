@@ -12,7 +12,7 @@ const NoteList = (props) => {
     />
   );
 
-  const filterNotes = props.notes.filter((note) => {
+  const filterNotes = props.Notes.filter((note) => {
     return note.doesMatchSearch;
   });
 
